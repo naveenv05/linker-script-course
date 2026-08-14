@@ -28,7 +28,7 @@ $(READELF_OUT): $(TARGET).elf
 
 # output file
 main.elf: $(OBJ) $(LD_SCRIPT)
-	$(LD) -s -Bsymbolic -gc-sections -T$(LD_SCRIPT) -static -Map=$(LD_MAP) -o $@ $(OBJ)
+	$(LD) -T$(LD_SCRIPT) -static -Map=$(LD_MAP) -o $@ $(OBJ)
 
 %.o: %.c
 	$(GCC) -Wall -nostdlib -fno-builtin -ffreestanding -c $<
