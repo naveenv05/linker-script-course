@@ -5,29 +5,29 @@
 
 MEMORY
 {
-    SECTION1 : ORIGIN = 0x20000000, LENGTH = 0x00010000
+    ROM : ORIGIN = 0x20000000, LENGTH = 0x0001000
+    RAM : ORIGIN = 0xa0000000, LENGTH = 0x0001000
 }
 
 SECTIONS
 {
-    .text : {
-        * (.text)
-    } > SECTION1
+    .rodata : {
+        * (.rodata)
+    } > ROM
 
     .data : {
         * (.data)
-    } > SECTION1
+    } > RAM AT> ROM
 
-    .rodata : {
-        * (.rodata)
-    } > SECTION1
+    .text : {
+        * (.text)
+    } > RAM AT> ROM
 
     .bss : {
         * (.bss)
-    } > SECTION1
+    } > RAM AT > RAM
 
     /DISCARD/ : {
-        main.o
-        global.o
-    } > SECTION1
+        *(.*)
+    } > ROM
 }
